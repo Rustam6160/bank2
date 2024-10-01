@@ -245,7 +245,7 @@ def show_exchange_rates(request):
 
     rates = []
     for i in data_dict['CurrencyRates']['Currency']:
-        rates.append(f'{i['Nominal']}{i['@ISOCode']} = {i['Value']}')
+        rates.append(f"{i['Nominal']}{i['@ISOCode']} = {i['Value']}")
 
     conversion_result = []
     if request.method == 'POST':
