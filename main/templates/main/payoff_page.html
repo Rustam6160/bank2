@@ -1,0 +1,35 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/payoff_page.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="body">
+        {% if messages %}
+            {% for message in messages %}
+                <h1 class="warning_message">{{ message }}</h1>
+            {% endfor %}
+        {% endif %}
+
+        {% for credit in credits %}
+            <div class="inf">
+                <p>Стоимость: {{ credit.value }}</p>
+                <p>Payoff_dates: {{ credit.payoff_date }}</p>
+                <p>Взято на {{ credit.how_many_months }} месяца</p>
+                <p>Дата оформления кредита: {{ credit.credit_taken_date }}</p>
+                <p>Расплата за месяц: {{ credit.money_back_month}}</p>
+                <p>Процентная ставка: {{ credit.procent_stavka}}</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input name="credit_id" type="hidden" value="{{ credit.id }}">
+                    <button type="submit">Заплатить</button>
+
+                    <button type="submit" name="for_month">Заплатить за месяц</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

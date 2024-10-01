@@ -1,0 +1,52 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/tr_history.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="body">
+        <form action="{%  url 'history_range' id=user.id %}" method="POST">
+            {% csrf_token %}
+            <p>Искать транзакции по дате</p>
+            <input type="datetime-local" name="start">
+            <input type="datetime-local" name="end">
+            <button type="submit">Покозать</button>
+        </form>
+
+        <p>Колво транзакций: {% counter transactions %}</p>
+        <div class="trs">
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Value</th>
+                        <th>Amount</th>
+                        <th>Recipient</th>
+                        <th>Time</th>
+                        <th>Kupon</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tr in transactions %}
+                        <tr>
+                            <td>{{ tr.user }}</td>
+                            <td>{{ tr.value }}</td>
+                            <td>{{ tr.amount }}</td>
+                            <td>{{ tr.recipient }}</td>
+                            <td>{{ tr.time }}</td>
+                            <td>{{ tr.kupon }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6">Нет выполненных транзакций</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,22 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/show_all_users.css' %}">
+{% endblock %}
+
+{% block content %}
+    {%  for user in users %}
+        <h3>Пользователь: {{ user }}</h3>
+
+        <form action="{%  url 'show_all_users' id=user.id %}" method="POST">
+        {% csrf_token %}
+
+        <input value="{{ user.id }}" type="text" name="res_id" hidden="hidden">
+
+        <button type="submit">Отправить</button>
+        </form><br>
+    {% endfor %}
+
+    <button><a href="{% url 'history_range' id=user.id %}">История</a></button>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet", href="{% static 'css/main.css' %}">
+</head>
+<body>
+
+    <h1>Это банк $$$$$</h1>
+    <a href="{% url 'registration' %}" class="button">Зарегистрироваться</a>
+
+    <form action="{%  url 'main' %}" method="POST">
+        {% csrf_token %}
+
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>gdfsg
+            {% endfor %}
+        {% endif %}
+
+        <h2>Форма для авторизации:</h2>
+
+        <label for="name">Имя: </label>
+        <input id="name" type="text" name="name"><br>
+
+        <label for="password">Пароль: </label>
+        <input id="password" type="text" name="password">
+
+        <button type="submit">Ввести</button>
+    </form>
+
+</body>
+</html>

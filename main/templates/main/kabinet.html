@@ -1,0 +1,39 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/kabinet.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
+
+    <div class="body">
+        <h2>Доступно: {{ user.wallet }}</h2><br>
+
+        <button><a href="{% url 'show_all_users' id=user.id %}">Показать всех пользователей</a></button>
+        <button><a href="{% url 'take_credit_page' id=user.id %}">Взять кредит</a></button>
+        <button><a href="{% url 'payoff_page' id=user.id %}">Расплатится за кредит</a></button>
+
+        <form action="{%  url 'kabinet' id=user.id %}" method="POST">
+            {% csrf_token %}
+            <h2>Перевод</h2>
+            <label for="name">Получатель: </label>
+            <input id="name" type="text" name="name">
+
+            <label for="money">Сумма: </label>
+            <input id="money" type="number" name="money" min="0">
+
+            <button type="submit">Отправить</button>
+        </form><br>
+        <form action="{%  url 'enter_kupon' id=user.id %}" method="POST">
+            {% csrf_token %}
+            <label for="name">Использовать купон: </label>
+            <input type="number" name="kupon" min="0">
+            <button type="submit">Ввести</button>
+        </form>
+    </div>
+{% endblock %}

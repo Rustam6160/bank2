@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for rate in rates %}
+        <p>{{ rate }}</p>
+    {% endfor %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Показать</button>
+    </form>
+
+    {% if conversion_result %}
+        <p>{{ conversion_result }}</p>
+    {% endif %}
+</body>
+</html>

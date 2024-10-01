@@ -1,0 +1,23 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/take_credit_page.css' %}">
+{% endblock %}
+
+{% block content %}
+    <form action="{% url 'take_credit_page' id=user.id %}" method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        {% if text %}
+            <p>{{ text }}</p>
+            <a href="{% url 'take_credit_page' id=user.id %}" class="btn btn-primary">Отмена</a>
+            <button type="submit" name="confirm_credit">Подтвердить кредит</button>
+        {% else %}
+            <button type="submit">Рассчитать</button>
+        {% endif %}
+    </form>
+
+
+{% endblock %}

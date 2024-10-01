@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block css %}{% endblock %}
+</head>
+<body>
+
+    {% if user %}
+        <header>
+            <nav> <h1>{{ user.name }}</h1><br>
+                <ul class="menu">
+                    <li><a href="{% url 'kabinet' id=user.id %}">Кабинет</a></li>
+                    <li><a href="{% url 'main' %}">Выйти</a></li>
+                    <li><a href="{% url 'take_credit_page' id=user.id %}">Взять кредит</a></li>
+                    <li><a href="{% url 'show_all_users' id=user.id %}">Все пользователи</a></li>
+                    <li><a href="{% url 'payoff_page' id=user.id %}">Мои кредиты</a></li>
+                </ul>
+            </nav>
+        </header>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
+

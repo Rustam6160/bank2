@@ -1,0 +1,14 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+    <form action="{% url 'payment' id=current_user.id %}" method="POST" >
+        {% csrf_token %}
+        {{ recipient.name }} <input type="checkbox" name="recipient_id" value="{{ recipient.id }}">
+        <input placeholder="Сколько" type="number" name="money"><br><br>
+
+        <label for="kupon_n">Номер купона</label>
+        <input id="kupon_n" type="number" name="kupon_n"><br><br>
+
+        <button type="submit">Отправить</button>
+    </form>
+{% endblock %}

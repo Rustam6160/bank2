@@ -1,0 +1,10 @@
+db.sqlite3
+migrations
+
+migrations/
+
+myenv
+
+myenv/
+
+.env
