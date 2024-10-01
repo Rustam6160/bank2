@@ -145,7 +145,7 @@ def show_all_users(request, id):
         res_id = request.POST.get('res_id')
         recipient = get_object_or_404(MyUser, id=res_id)
 
-        return render(request, 'main/payment.html', context={'recipient': recipient, 'current_user': current_user})
+        return render(request, 'main/payment.html', context={'recipient': recipient, 'user': current_user})
 
     users = MyUser.objects.filter(~Q(id=current_user.id))
 
