@@ -37,7 +37,7 @@ class MainView(View):
 #         except:
 #             messages.warning(request, 'Нету такого полбзователя или неправильный пароль')
 #             return redirect('main')
-#+-
+#
 #     return render(request, 'main/main.html')
 
 
