@@ -6,13 +6,13 @@
 {% endblock %}
 
 {% block content %}
-    {%  for user in users %}
-        <h3>Пользователь: {{ user }}</h3>
+    {%  for res_user in users %}
+        <h3>Пользователь: {{ res_user }}</h3>
 
         <form action="{%  url 'show_all_users' id=user.id %}" method="POST">
         {% csrf_token %}
 
-        <input value="{{ user.id }}" type="text" name="res_id" hidden="hidden">
+        <input value="{{ res_user.id }}" type="text" name="res_id" hidden="hidden">
 
         <button type="submit">Отправить</button>
         </form><br>

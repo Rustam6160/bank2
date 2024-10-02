@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-
 from .constant import *
 from .models import *
 from .forms import *
@@ -15,15 +14,11 @@ import calendar
 
 
 def transaction(user, amount, recipient, kupon_n=False):
-    recipient = MyUser.objects.get(name=recipient)
-    print(22)
     if kupon_n:
         kupon = get_object_or_404(Kupon, number=kupon_n)
     else:
         kupon = False
-    print(55)
-    if amount >= 0 and amount:
-        print(99)
+    if amount:
         user.wallet -= amount
         user.save()
         if kupon:
@@ -38,7 +33,6 @@ def transaction(user, amount, recipient, kupon_n=False):
         else:
             recipient.wallet += amount
         recipient.save()
-        print(33)
         if kupon:
             Transaction.objects.create(user=recipient, amount=amount, value='+', recipient=user, kupon=kupon)
         else:

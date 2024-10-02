@@ -104,12 +104,10 @@ def kabinet(request, id):
     user = get_object_or_404(MyUser, id=id)
     trs = Transaction.objects.all()
     if request.method == 'POST':
-        print(00)
         name = request.POST.get('name')
         money = request.POST.get('money')
         if money:
             money = int(money)
-            print(00)
             try:
                 recipient = get_object_or_404(MyUser, name=name)
                 if user.wallet >= money and money >= 0:
@@ -155,15 +153,18 @@ def show_all_users(request, id):
 def payment(request, id):
     if request.method == 'POST':
         money = request.POST.get('money')
-        if money: money = int(money)
+        if money:
+            money = int(money)
+        else:
+            return redirect('kabinet', id=id)
 
         kupon_n = request.POST.get('kupon_n')
 
         recipient_id = request.POST.get('recipient_id')
         recipient = get_object_or_404(MyUser, id=recipient_id)
         current_user = get_object_or_404(MyUser, id=id)
-        transaction(current_user, money, recipient, kupon_n)
-        return redirect('kabinet', id=id)
+        transaction(user=current_user, amount=money, recipient=recipient, kupon_n=kupon_n)
+        return redirect('kabinet', id=current_user.id)
 
 
 def enter_kupon(request, id):
