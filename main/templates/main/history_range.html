@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="body">
-        <form action="{%  url 'history_range' id=user.id %}" method="POST">
+        <form action="{%  url 'history_range' %}" method="POST">
             {% csrf_token %}
             <p>Искать транзакции по дате</p>
             <input type="datetime-local" name="start">
@@ -26,7 +26,7 @@
                         <th>Amount</th>
                         <th>Recipient</th>
                         <th>Time</th>
-                        <th>Kupon</th>
+                        <th>Kupon value</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,7 +37,7 @@
                             <td>{{ tr.amount }}</td>
                             <td>{{ tr.recipient }}</td>
                             <td>{{ tr.time }}</td>
-                            <td>{{ tr.kupon }}</td>
+                            <td>{{ tr.kupon.value }}</td>
                         </tr>
                     {% empty %}
                         <tr>

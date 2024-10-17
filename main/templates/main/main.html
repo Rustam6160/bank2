@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet", href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
 
@@ -16,7 +16,7 @@
 
         {% if messages %}
             {% for message in messages %}
-                <p>{{ message }}</p>gdfsg
+                <div class="error_m"><p>{{ message }}</p></div>
             {% endfor %}
         {% endif %}
 

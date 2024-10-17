@@ -2,38 +2,41 @@
 {% load static %}
 {% load custom_tags %}
 
+
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/kabinet.css' %}">
+
 {% endblock %}
 
 {% block content %}
-    {% if error_message %}
-        <p>{{ error_message }}</p>
-    {% endif %}
+
+{% if user.is_authenticated %}
+	<p>Name: {{user.first_name}} {{ user.last_name}}</p>
+	<p>Username: {{user.username}}</p>
+
+	<p>Email: {{user.email}}</p>
 
     <div class="body">
-        <h2>Доступно: {{ user.wallet }}</h2><br>
+        {% if error_message %}
+            <div class="error_message">
+                <p>{{ error_message }}</p>
+            </div>
+        {% endif %}
 
-        <button><a href="{% url 'show_all_users' id=user.id %}">Показать всех пользователей</a></button>
-        <button><a href="{% url 'take_credit_page' id=user.id %}">Взять кредит</a></button>
-        <button><a href="{% url 'payoff_page' id=user.id %}">Расплатится за кредит</a></button>
+        <h2>Доступно: {{ user.profile.wallet }}</h2><br>
 
-        <form action="{%  url 'kabinet' id=user.id %}" method="POST">
-            {% csrf_token %}
-            <h2>Перевод</h2>
-            <label for="name">Получатель: </label>
-            <input id="name" type="text" name="name">
+        <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
 
-            <label for="money">Сумма: </label>
-            <input id="money" type="number" name="money" min="0">
-
-            <button type="submit">Отправить</button>
-        </form><br>
-        <form action="{%  url 'enter_kupon' id=user.id %}" method="POST">
-            {% csrf_token %}
-            <label for="name">Использовать купон: </label>
-            <input type="number" name="kupon" min="0">
-            <button type="submit">Ввести</button>
-        </form>
+        {% if notifications %}
+            <div class="notifications">
+                <ul>
+                    {% for notification in notifications %}
+                        <p>{{ notification }}</p>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
     </div>
+
+{% endif %}
+
 {% endblock %}

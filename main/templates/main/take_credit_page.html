@@ -6,13 +6,13 @@
 {% endblock %}
 
 {% block content %}
-    <form action="{% url 'take_credit_page' id=user.id %}" method="POST">
+    <form action="{% url 'take_credit_page' %}" method="POST">
         {% csrf_token %}
 
         {{ form.as_p }}
         {% if text %}
             <p>{{ text }}</p>
-            <a href="{% url 'take_credit_page' id=user.id %}" class="btn btn-primary">Отмена</a>
+            <a href="{% url 'take_credit_page'%}" class="btn btn-primary">Отмена</a>
             <button type="submit" name="confirm_credit">Подтвердить кредит</button>
         {% else %}
             <button type="submit">Рассчитать</button>

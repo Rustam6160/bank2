@@ -1,9 +1,20 @@
 {% extends "main/base.html" %}
 
 {% block content %}
-    <form action="{% url 'payment' id=user.id %}" method="POST" >
+    <form action="{% url 'payment' %}" method="POST" >
         {% csrf_token %}
-        {{ recipient.name }} <input type="checkbox" name="recipient_id" value="{{ recipient.id }}">
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        {% if recipient %}
+            {{ recipient.name }} <input type="checkbox" name="recipient_id" value="{{ recipient.id }}">
+        {% else %}
+            <input placeholder="Кому" type="text" name="recipient_name"><br><br>
+        {% endif %}
+
+
         <input placeholder="Сколько" type="number" name="money"><br><br>
 
         <label for="kupon_n">Номер купона</label>

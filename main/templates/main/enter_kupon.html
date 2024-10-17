@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>Введите купон</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="kupon">Номер купона:</label>
+        <input type="number" name="kupon" required>
+        <button type="submit">Применить</button>
+    </form>
+
+    <h2>Доступные купоны:</h2>
+    <ul>
+        {% for kupon in kupons %}
+            <li>Купон #{{ kupon.number }} ({{ kupon.value }} сомов)</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+

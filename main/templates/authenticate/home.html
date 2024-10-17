@@ -1,15 +1,41 @@
-{% extends 'authenticate/base.html' %}
-
-{% block content %}
-
-<h1> Home page</h1>
-
+{% extends 'main/base.html' %}
 {% if user.is_authenticated %}
-	<p>Name: {{user.first_name}} {{ user.last_name}}</p>
-	<p>Username: {{user.username}}</p>
-	
-	<p>Email: {{user.email}}</p>
+    {% load static %}
+    {% load custom_tags %}
 
-{% endif %}
 
-{% endblock %}
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'css/kabinet.css' %}">
+    {% endblock %}
+
+    {% block content %}
+            <div class="body">
+                {% if error_message %}
+                    <div class="error_message">
+                        <p>{{ error_message }}</p>
+                    </div>
+                {% endif %}
+
+                <h2>Доступно: {{ user.profile.wallet }}</h2><br>
+
+                <a href="{% url 'payment' %}">Перевод денег</a>
+
+                <a href="{% url 'enter_kupon' %}">Использовать купон</a>
+
+                <a href="{% url 'take_card' %}">Взять карту</a>
+                <a href="{% url 'phone_balance' %}">Баланс телефона</a>
+            </div>
+    {% endblock %}
+
+{% else %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+
+        <li class="nav-item active">
+        <a class="nav-link" href="{% url 'register' %}">Register</a>
+      </li>
+
+{% endif%}
+
+

@@ -1,0 +1,15 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+
+{% block content %}
+    {% if payoffs %}
+        <ul>
+            {% for payoff in payoffs %}
+                <li>{{ payoff.amount_paid }}сом - {{ payoff.payment_date }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h2>Вы еше не оплачивали</h2>
+    {% endif %}
+{% endblock %}

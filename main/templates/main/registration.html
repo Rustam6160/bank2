@@ -6,9 +6,14 @@
 </head>
 <body>
      <form action="{% url 'registration' %}" method="POST">
-        {% csrf_token %}
+         {% csrf_token %}
 
-        {{ form.as_p }}
+          {% if messages %}
+              {% for message in messages %}
+                  <p>{{ message }}</p>
+              {% endfor %}
+          {% endif %}
+          {{ form.as_p }}
 
          <button type="submit">Создать</button>
      </form>

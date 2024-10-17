@@ -7,9 +7,9 @@
 
 {% block content %}
     {%  for res_user in users %}
-        <h3>Пользователь: {{ res_user }}</h3>
+        <h3>Пользователь: {{ res_user.username }}</h3>
 
-        <form action="{%  url 'show_all_users' id=user.id %}" method="POST">
+        <form action="{%  url 'show_all_users'%}" method="POST">
         {% csrf_token %}
 
         <input value="{{ res_user.id }}" type="text" name="res_id" hidden="hidden">
@@ -18,5 +18,5 @@
         </form><br>
     {% endfor %}
 
-    <button><a href="{% url 'history_range' id=user.id %}">История</a></button>
+    <button><a href="{% url 'history_range' %}">История</a></button>
 {% endblock %}

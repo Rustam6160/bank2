@@ -1,91 +1,73 @@
 /* kabinet.css */
 
-/* Основные стили */
-
-.body {
-    max-width: 600px;
-    margin: 0 auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
 }
 
-/* Заголовки */
+.body {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 h2 {
-    color: #4A90E2;
+    color: #333;
+}
+
+.error_message {
+    color: #d9534f;
+    margin-bottom: 15px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 
-/* Кнопки */
+.button-group button {
+    flex: 1;
+    margin: 0 5px;
+}
+
 button {
-    background-color: #4A90E2;
+    background-color: #007BFF;
     color: white;
     border: none;
+    padding: 10px 15px;
     border-radius: 5px;
-    padding: 10px;
     cursor: pointer;
-    margin: 10px 0;
-    width: 100%;
     transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #357ABD;
+    background-color: #0056b3;
 }
 
-/* Стили для ссылок в кнопках */
-button a {
-    color: white;
-    text-decoration: none;
+label {
+    display: block;
+    margin: 10px 0 5px;
 }
 
-/* Формы */
-form {
-    background: white;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 20px;
-}
-
-/* Поля ввода */
 input[type="text"],
 input[type="number"] {
-    width: calc(100% - 20px);
+    width: 100%;
     padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     box-sizing: border-box;
+    margin-bottom: 15px;
 }
 
-/* Стили для меток */
-label {
-    font-weight: bold;
-}
-
-/* Адаптивные стили */
-@media (max-width: 600px) {
-    body {
-        padding: 10px;
+@media (max-width: 768px) {
+    .button-group {
+        flex-direction: column;
     }
 
-    .body {
-        padding: 15px;
-    }
-
-    h2 {
-        font-size: 1.5em;
-    }
-
-    button {
-        padding: 12px;
-        font-size: 1em;
-    }
-
-    input[type="text"],
-    input[type="number"] {
-        padding: 8px;
-        font-size: 1em;
+    .button-group button {
+        margin: 5px 0;
     }
 }
