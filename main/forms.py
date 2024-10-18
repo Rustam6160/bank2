@@ -100,3 +100,10 @@ class SignUpForm(UserCreationForm):
         self.fields['password2'].label = ''
         self.fields[
             'password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
+
+        def save(self, commit=True):
+            user = super().save(commit=False)
+            if commit:
+                user.save()
+                Profile.objects.create(user=user)
+                return user
