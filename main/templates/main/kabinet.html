@@ -4,17 +4,18 @@
 
 
 {% block css %}
-
+    <link rel="stylesheet" href="{% static 'css/kabinet.css' %}">
 {% endblock %}
 
 {% block content %}
 
 {% if user.is_authenticated %}
-	<p>Name: {{user.first_name}} {{ user.last_name}}</p>
-	<p>Username: {{user.username}}</p>
+    <div class="inf_user">
+        <p>Name: {{user.first_name}} {{ user.last_name}}</p>
+        <p>Username: {{user.username}}</p>
 
-	<p>Email: {{user.email}}</p>
-
+        <p>Email: {{user.email}}</p>
+    </div>
     <div class="body">
         {% if error_message %}
             <div class="error_message">

@@ -1,5 +1,13 @@
+import json
+
 from .services import *
 from .models import *
+from .serializers import *
+
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 import requests
 import xmltodict
 from django.contrib import messages
@@ -103,6 +111,17 @@ class ShowHistoryRangeView(View):
         return render(request, 'main/history_range.html', context={'transactions': transactions, 'user': user})
 
 
+class ShowAllUsersAPIView(APIView):
+
+    def get(self, request):
+        current_user = request.user
+        users = User.objects.filter(~Q(id=current_user.id)).values()
+        return Response({'dfs': users})
+
+    # queryset = Profile.objects.select_related('user').all()
+    # serializer_class = ShowAllUsersSerializer
+
+
 class ShowAllUsersView(View):
     def get(self, request):
         current_user = request.user
@@ -147,6 +166,13 @@ class PaymentView(View):
     def get(self, request):
 
         return render(request, 'main/payment.html', context={'user_id': request.user.id})
+
+
+class EnterKuponAPIView(APIView):
+    def get(self, request):
+        kupons = Kupon.objects.filter(active=True)
+        return Response({'kupons': kupons})
+
 
 
 class EnterKuponView(View):
@@ -263,33 +289,31 @@ class PhoneBalanceView(View):
 
 class ShowExchangeRatesView(View):
     def get(self, request):
-        r = requests.get('https://www.nbkr.kg/XML/daily.xml')
-        data_dict = xmltodict.parse(r.content)
 
-        rates = [
-            f"{i['Nominal']}{i['@ISOCode']} = {i['Value']}"
-            for i in data_dict['CurrencyRates']['Currency']
-        ]
+        with open("main/json_files/exchange_rates.json", "r", encoding="utf-8") as file:
+            rates = json.load(file)
+
         form = CurrencyConverterForm()
         return render(request, 'main/show_exchange_rates.html', context={'rates': rates, 'form': form, 'conversion_result': None})
 
     def post(self, request):
-        r = requests.get('https://www.nbkr.kg/XML/daily.xml')
-        data_dict = xmltodict.parse(r.content)
-
-        rates = [
-            f"{i['Nominal']}{i['@ISOCode']} = {i['Value']}"
-            for i in data_dict['CurrencyRates']['Currency']
-        ]
+        with open("main/json_files/exchange_rates.json", "r", encoding="utf-8") as file:
+            rates = json.load(file)
 
         form = CurrencyConverterForm(request.POST)
         conversion_result = None
 
         if form.is_valid():
-            from_currency = form.cleaned_data['from_currency']
+            from_currency = form.cleaned_data['from_currency'].upper()
+            to_currency = form.cleaned_data['to_currency'].upper()
+            if from_currency == to_currency:
+                messages.warning(request, 'нельза конвертировать на ту же валюту!')
+                return render(request, 'main/show_exchange_rates.html',
+                              context={'rates': rates, 'form': form})
+
             amount = form.cleaned_data['amount']
             amount = float(amount)
-            conversion_result = currency_converter(data_dict, from_currency, amount)
+            conversion_result = currency_converter(rates, from_currency, to_currency, amount)
 
         return render(request, 'main/show_exchange_rates.html', context={'rates': rates, 'form': form, 'conversion_result': conversion_result})
 

@@ -15,6 +15,9 @@ from django.core.exceptions import ValidationError
 
 
 
+from django import forms
+from .models import Credit
+
 class MathCreditForm(forms.ModelForm):
     class Meta:
         model = Credit
@@ -25,13 +28,23 @@ class MathCreditForm(forms.ModelForm):
                 'placeholder': 'Введите сумму кредита',
                 'min': '0',
                 'step': '0.01',
+                'required': 'required',  # Обязательное поле
             }),
             'how_many_months': forms.NumberInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Введите количество месяцев',
                 'min': '1',
+                'required': 'required',  # Обязательное поле
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(MathCreditForm, self).__init__(*args, **kwargs)
+        self.fields['value'].label = "Сумма кредита"  # Пользовательская метка
+        self.fields['how_many_months'].label = "Количество месяцев"  # Пользовательская метка
+        self.fields['value'].widget.attrs['class'] += ' input-lg'  # Увеличенный размер поля
+        self.fields['how_many_months'].widget.attrs['class'] += ' input-lg'  # Увеличенный размер поля
+
 
     def clean_value(self):
         value = self.cleaned_data.get('value')
@@ -54,9 +67,43 @@ class PhoneBalanceForm(forms.ModelForm):
         fields = ['amount']
 
 
+from django import forms
+
+
 class CurrencyConverterForm(forms.Form):
-    from_currency = forms.CharField(label='Валюта', max_length=10)
-    amount = forms.DecimalField(label='Сумма', min_value=0)
+    CURRENCY_CHOICES = [
+        ('USD', 'USD - Доллар США'),
+        ('EUR', 'EUR - Евро'),
+        ('CNY', 'CNY - Китайский юань'),
+        ('KZT', 'KZT - Казахский тенге'),
+        ('RUB', 'RUB - Российский рубль'),
+        ('KGS', 'KGS - Киргизский сом'),
+    ]
+
+    from_currency = forms.ChoiceField(
+        label='Валюта',
+        choices=CURRENCY_CHOICES,
+        widget=forms.Select(attrs={
+            'class': 'form-control'  # Класс для стилей
+        })
+    )
+
+    to_currency = forms.ChoiceField(
+        label='На какую валюту',
+        choices=CURRENCY_CHOICES,
+        widget=forms.Select(attrs={
+            'class': 'form-control'  # Класс для стилей
+        })
+    )
+
+    amount = forms.DecimalField(
+        label='Сумма',
+        min_value=0,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',  # Класс для стилей
+            'placeholder': 'Введите сумму'
+        })
+    )
 
 
 class EditProfileForm(UserChangeForm):

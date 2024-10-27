@@ -1,0 +1,82 @@
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Стили для курсов валют */
+.exchange-rate {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+}
+
+.exchange-rate p {
+    margin: 0;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #007bff;  /* Цвет рамки */
+    border-radius: 5px;
+    background-color: #e9f7fe;  /* Светлый фон */
+    color: #0056b3;  /* Цвет текста */
+    font-size: 18px;  /* Размер шрифта */
+    text-align: center;  /* Выравнивание текста по центру */
+}
+
+/* Стили для формы */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Стили для кнопки */
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .exchange-rate {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .result {
+        font-size: 16px;  /* Уменьшение размера шрифта на мобильных устройствах */
+    }
+}

@@ -3,6 +3,7 @@ from django.urls import path, include
 from . import views
 from django.urls import path
 from .views import *
+from .serializers import *
 
 
 urlpatterns = [
@@ -16,7 +17,12 @@ urlpatterns = [
     path('kabinet/', KabinetView.as_view(), name='kabinet'),
     path('history_range/', ShowHistoryRangeView.as_view(), name='history_range'),
     path('show_all_users/', ShowAllUsersView.as_view(), name='show_all_users'),
+
+    path('api/v1/show_all_users/', ShowAllUsersAPIView.as_view()),
+
     path('enter_kupon/', EnterKuponView.as_view(), name='enter_kupon'),
+    path('api/v1/enter_kupon/', ShowAllUsersAPIView.as_view()),
+
     path('payment/', PaymentView.as_view(), name='payment'),
     path('take_credit_page/', TakeCreditPageView.as_view(), name='take_credit_page'),
     path('payoff_page/', PayoffPageView.as_view(), name='payoff_page'),

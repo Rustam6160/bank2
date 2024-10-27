@@ -1,23 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {% for rate in rates %}
-        <p>{{ rate }}</p>
-    {% endfor %}
+{% extends "main/base.html" %}
+{% load static %}
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
+{% block css %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-        <button type="submit">Показать</button>
-    </form>
+    <link rel="stylesheet" href="{% static 'css/exchange_rates.css' %}">
+{% endblock %}
 
-    {% if conversion_result %}
-        <p>{{ conversion_result }}</p>
-    {% endif %}
-</body>
-</html>
+{% block content %}
+    <body>
+        <h1>Курсы валют</h1>
+
+        {% for rate in rates %}
+            <div class="exchange-rate">
+                <p>{{ rate.Nominal }} {{ rate.ISOCode }} = {{ rate.Value }} KGS</p>
+            </div>
+        {% endfor %}
+
+
+        {% if messages %}
+            {% for message in messages %}
+                <h1 class="warning_message">{{ message }}</h1>
+            {% endfor %}
+        {% endif %}
+
+        {% if conversion_result %}
+            <div class="result">
+                <p>Результат: {{ conversion_result }}</p>
+            </div>
+        {% endif %}
+
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Показать</button>
+        </form>
+
+
+    </body>
+{% endblock %}

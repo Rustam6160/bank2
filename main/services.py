@@ -174,10 +174,28 @@ def prosrochka(credit, request):
 
 
 
-def currency_converter(data_dict, from_currency, amount):
-    for i in data_dict['CurrencyRates']['Currency']:
-        if i['@ISOCode'] == from_currency:
-            value = i['Value']
-            if ',' in value:
-                value = value.replace(',', '.')
-            return amount * float(value)
+def currency_converter(rates, from_currency, to_currency, amount):
+    from_value = None
+    to_value = None
+
+    # Проход по всем курсам валют для получения значений
+    for rate in rates:
+
+        # Получаем курс для from_currency
+        if from_currency == 'KGS':
+            from_value = 1
+        elif rate['ISOCode'] == from_currency:
+            from_value = float(rate['Value'].replace(',', '.'))
+
+        if rate['ISOCode'] == to_currency:
+            to_value = float(rate['Value'].replace(',', '.'))
+
+    if to_currency == 'KGS':
+        converted_amount = amount * from_value
+    else:
+        amount_in_kgs = amount * from_value
+        converted_amount = amount_in_kgs / to_value
+    return round(converted_amount, 3)
+
+
+

@@ -1,4 +1,10 @@
 {% extends "main/base.html" %}
+{% load static %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+{% endblock %}
 
 {% block content %}
     <form action="{% url 'payment' %}" method="POST" >
@@ -9,15 +15,17 @@
             {% endfor %}
         {% endif %}
         {% if recipient %}
-            {{ recipient.name }} <input type="checkbox" name="recipient_id" value="{{ recipient.id }}">
+            <label for="recipient_id">Вы уверены отправить деньги пользователю {{ recipient.username }}?</label>
+            <input type="checkbox" name="recipient_id" value="{{ recipient.id }}"><br>
         {% else %}
-            <input placeholder="Кому" type="text" name="recipient_name"><br><br>
+            <label for="recipient_name">Ник получателя</label>
+            <input type="text" name="recipient_name"><br><br>
         {% endif %}
 
+        <label for="money">Cумма перевода</label>
+        <input type="number" name="money"><br><br>
 
-        <input placeholder="Сколько" type="number" name="money"><br><br>
-
-        <label for="kupon_n">Номер купона</label>
+        <label for="kupon_n">Номер купона (не обязательно)</label>
         <input id="kupon_n" type="number" name="kupon_n"><br><br>
 
         <button type="submit">Отправить</button>

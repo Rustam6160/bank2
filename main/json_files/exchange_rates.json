@@ -1,0 +1,27 @@
+[
+    {
+        "Nominal": "1",
+        "ISOCode": "USD",
+        "Value": "85,8000"
+    },
+    {
+        "Nominal": "1",
+        "ISOCode": "EUR",
+        "Value": "92,8656"
+    },
+    {
+        "Nominal": "1",
+        "ISOCode": "CNY",
+        "Value": "12,0444"
+    },
+    {
+        "Nominal": "1",
+        "ISOCode": "KZT",
+        "Value": "0,1769"
+    },
+    {
+        "Nominal": "1",
+        "ISOCode": "RUB",
+        "Value": "0,8900"
+    }
+]

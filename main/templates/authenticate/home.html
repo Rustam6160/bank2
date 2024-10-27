@@ -5,7 +5,7 @@
 
 
     {% block css %}
-        <link rel="stylesheet" href="{% static 'css/kabinet.css' %}">
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
     {% endblock %}
 
     {% block content %}
@@ -24,6 +24,7 @@
 
                 <a href="{% url 'take_card' %}">Взять карту</a>
                 <a href="{% url 'phone_balance' %}">Баланс телефона</a>
+                <a href="{% url 'show_exchange_rates' %}">Посмотреть курсы валют</a>
             </div>
     {% endblock %}
 

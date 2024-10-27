@@ -1,0 +1,57 @@
+/* Общие стили */
+h2 {
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+li {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+li:hover {
+    background-color: rgba(241, 241, 241, 0.24);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.amount {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.date {
+    color: #666;
+}
+
+/* Адаптивные стили */
+@media (max-width: 600px) {
+    h2 {
+        font-size: 1.5em;
+    }
+
+    li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .amount {
+        font-size: 1.2em;
+    }
+
+    .date {
+        font-size: 0.9em;
+    }
+}
